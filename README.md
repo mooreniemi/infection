@@ -29,4 +29,12 @@ This reads like a straight-forward exhaustive graph traversal to me, so my first
 
 ## partial infection
 
+> We would like to be able to infect close to a given number of users. Ideally we’d like a coach and all of their students to either have a feature or not. However, that might not always be possible.
+
+> write a version of limited_infection that infects exactly the number of users specified and fails if that’s not possible (this can be (really) slow)
+
+The first statement and the optional task to do taken together suggested to me two necessary operations for the ideal: finding connected components so we can get their size (number of nodes, vertices, users), and an operation to find the connected component sizes summed closest to our target. This reminded me a bit of the knapsack problem or k-sum. After thinking on it a bit, I figured it matches the [subset sum problem](https://en.wikipedia.org/wiki/Subset_sum_problem), which is NP-complete.
+
+> Implement a procedure for limited infection. You will not be penalized for interpreting the specification as you see fit. There are many design choices and tradeoffs, so be prepared to justify your decisions.
+
 

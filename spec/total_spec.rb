@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-require 'total_infection'
+require 'user'
 
 describe "total_infection" do
   describe User do
@@ -47,9 +47,7 @@ describe "total_infection" do
       expect(patient_c.version).to eq(:B)
     end
 
-    it 'spreads transitively, undirected' do
-      # clear out our "database"
-
+    it 'spreads commutatively' do
       patient_a = User.new(0, :A, [1])
       patient_b = User.new(1, :A, [0,2])
       patient_c = User.new(2, :A, [1])
