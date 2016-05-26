@@ -37,4 +37,4 @@ The first statement and the optional task to do taken together suggested to me t
 
 > Implement a procedure for limited infection. You will not be penalized for interpreting the specification as you see fit. There are many design choices and tradeoffs, so be prepared to justify your decisions.
 
-
+The procedure for limited infection then has 2 parts: 1. finding all connected components of a graph and getting its size, 2. using a set of the connected component sizes as integers, find a subset that matches the target number most closely. 1. is an extension of the solution to total infection, to my mind, because we just need to call a Breadth-First or Depth-First search on every vertex, checking as we go that we're not repeating one. In the interest of time then I'm going to focus on 2, by pretending I already have the set of component sizes I need, and implement a method for finding the subset sum from that set.
