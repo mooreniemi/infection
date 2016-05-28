@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    benchmark-perf (0.1.0)
     coderay (1.1.1)
     diff-lcs (1.2.5)
     method_source (0.8.2)
@@ -12,6 +13,9 @@ GEM
       rspec-core (~> 3.4.0)
       rspec-expectations (~> 3.4.0)
       rspec-mocks (~> 3.4.0)
+    rspec-benchmark (0.1.0)
+      benchmark-perf (~> 0.1.0)
+      rspec (>= 3.0.0, < 4.0.0)
     rspec-core (3.4.4)
       rspec-support (~> 3.4.0)
     rspec-expectations (3.4.0)
@@ -29,6 +33,7 @@ PLATFORMS
 DEPENDENCIES
   pry
   rspec
+  rspec-benchmark
 
 BUNDLED WITH
    1.10.6

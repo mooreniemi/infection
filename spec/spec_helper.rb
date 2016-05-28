@@ -1,6 +1,11 @@
 $: << '../lib'
 
+require 'pry'
+require 'rspec-benchmark'
+
 RSpec.configure do |config|
+  config.include RSpec::Benchmark::Matchers
+  #
   # Use color in STDOUT
   config.color = true
 
