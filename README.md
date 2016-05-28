@@ -31,10 +31,10 @@ This reads like a straight-forward exhaustive graph traversal to me, so my first
 
 > We would like to be able to infect close to a given number of users. Ideally we’d like a coach and all of their students to either have a feature or not. However, that might not always be possible.
 
+Given the constraint on coaching relationships is loose here, the simplest solution that occurs to me is just to keep track of how many users have been infected and stop when we hit our target. This is pretty trivial to implement using `total_infection` with one extension: we need to do it over multiple components.
+
 > write a version of limited_infection that infects exactly the number of users specified and fails if that’s not possible (this can be (really) slow)
 
-The first statement and the optional task to do taken together suggested to me two necessary operations for the ideal: finding connected components so we can get their size (number of nodes, vertices, users), and an operation to find the connected component sizes summed closest to our target. This reminded me a bit of the knapsack problem or k-sum. After thinking on it a bit, I figured it matches the [subset sum problem](https://en.wikipedia.org/wiki/Subset_sum_problem), which is NP-complete.
+The optional task to do requires two necessary operations: 1. finding connected components so we can get their size (number of nodes, vertices, users), and 2. an operation to find the connected component sizes summed to our target (if there are any). This reminded me a bit of the knapsack problem or k-sum. After thinking on it a bit, I figured it matches the [subset sum problem](https://en.wikipedia.org/wiki/Subset_sum_problem), which is NP-complete.
 
-> Implement a procedure for limited infection. You will not be penalized for interpreting the specification as you see fit. There are many design choices and tradeoffs, so be prepared to justify your decisions.
-
-The procedure for limited infection then has 2 parts: 1. finding all connected components of a graph and getting its size, 2. using a set of the connected component sizes as integers, find a subset that matches the target number most closely. 1. is an extension of the solution to total infection, to my mind, because we just need to call a Breadth-First or Depth-First search on every vertex, checking as we go that we're not repeating one. In the interest of time then I'm going to focus on 2, by pretending I already have the set of component sizes I need, and implement a method for finding the subset sum from that set.
+The simple solution to `partial_infection` can be leveraged to satisfy our first problem. The second problem I solve with an implementation of a dynamic programming algorithm for subset sum. This solution would not be efficient for very large sums, but I think with scaling gives an acceptable approximate.
