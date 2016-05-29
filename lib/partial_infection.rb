@@ -37,7 +37,7 @@ end
 module PartialInfection
   refine Array do
     using Trim
-    def approximate_doomed_subset_upto(target, delta = 0.1)
+    def approximate_doomed_subset_upto(target, delta = 0.25)
       n = self.length
       l = [0]
       (0..n - 1).each do |i|

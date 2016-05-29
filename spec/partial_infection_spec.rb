@@ -36,14 +36,16 @@ describe 'partial_infection' do
     it 'returns false if we cant reach the sum with our current communities' do
       expect(bad_community_array.doomed_subset_upto(6)).to eq(false)
     end
-    it 'is exact but very slow for larger numbers' do
+
+    xit 'is exact but very slow for larger numbers' do
       time = Time.new
       puts "starting at #{time.hour}:#{time.min} this will take roughly 2 minutes to solve, so hold tight :)"
       expect(big_community_array.doomed_subset_upto(9000)).to match_array([2000,3000,4000])
-
-      # puts "starting at #{time.hour}:#{time.min} this performance test will take 10 minutes minimum!"
-      #expect { big_community_array.doomed_subset_upto(9000) }.
-      #  to perform_under(5).min.and_sample(10)
+    end
+    xit 'performance test for exact' do
+      puts "starting at #{time.hour}:#{time.min} this performance test will take 10 minutes minimum!"
+      expect { big_community_array.doomed_subset_upto(9000) }.
+        to perform_under(5).min.and_sample(10)
     end
   end
 end
