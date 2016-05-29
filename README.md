@@ -33,7 +33,7 @@ I interpreted the last sentence to mean it is a _simple_ graph, because if it ha
 
 > Now implement the infection algorithm. Starting from any given user, the entire connected component of the coaching graph containing that user should become infected.
 
-This reads like a straight-forward exhaustive graph traversal to me, so my first impulse is a Breadth-First Search though a Depth-First Search would've been fine too. With either, we know based on a given graph and some vertex on it, we can find all the other vertices.
+This reads like a straight-forward exhaustive graph traversal to me, so my first impulse is a Breadth-First Search though a Depth-First Search would've been fine too. With either, we know based on a given graph and some vertex on it, we can find all the other vertices of that seed vertex's connected component.
 
 ## partial infection
 

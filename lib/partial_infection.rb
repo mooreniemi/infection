@@ -50,7 +50,13 @@ module PartialInfection
       # we can throw out our seed value now
       l = l.reject!(&:zero?)
       l.pop # we dont need the sum we found
+
+      puts "l: #{l}"
+      # now we need to grab the original values
       l.inject([]) do |found, e|
+        # we only need the first subset that works
+        return found if found.reduce(0, :+) >= target
+
         if self.index(e)
           found << e
         else

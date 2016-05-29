@@ -6,7 +6,7 @@ describe 'partial_infection' do
   using PartialInfection
   let(:good_community_array) { CommunityArray.new([3,34,4,12,5,2])}
   let(:bad_community_array) { CommunityArray.new([2,3])}
-  let(:big_community_array) { CommunityArray.new([2000,3000,12000,5000,4000,34000])}
+  let(:big_community_array) { CommunityArray.new([2450,3067,12001,5090,4234,34003])}
 
   describe '#approximate_doomed_subset_upto' do
     context 'relies on trimming "close enough" elements' do
@@ -25,7 +25,8 @@ describe 'partial_infection' do
         to match_array([101,201])
     end
     it 'can handle larger numbers' do
-      expect(big_community_array.approximate_doomed_subset_upto(9105)).to eq([])
+      expect(big_community_array.approximate_doomed_subset_upto(9105)).
+        to eq([2450, 3067, 4234])
     end
   end
 
@@ -39,11 +40,13 @@ describe 'partial_infection' do
 
     xit 'is exact but very slow for larger numbers' do
       time = Time.new
-      puts "starting at #{time.hour}:#{time.min} this will take roughly 2 minutes to solve, so hold tight :)"
+      puts "starting at #{time.hour}:#{time.min} this will take " +
+        "roughly 2 minutes to solve, so hold tight :)"
       expect(big_community_array.doomed_subset_upto(9000)).to match_array([2000,3000,4000])
     end
     xit 'performance test for exact' do
-      puts "starting at #{time.hour}:#{time.min} this performance test will take 10 minutes minimum!"
+      puts "starting at #{time.hour}:#{time.min} this performance test will take " +
+        "10 minutes minimum!"
       expect { big_community_array.doomed_subset_upto(9000) }.
         to perform_under(5).min.and_sample(10)
     end
