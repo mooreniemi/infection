@@ -56,5 +56,15 @@ describe CommunityGraph do
         expect(after_infection).to eq(true)
       end
     end
+
+    describe '#partial_infection_of(number_users, margin_of_error)' do
+      it 'infects best fit of users' do
+        before_infection = valid_community_graph.ids.all? {|id| $communities[id].all_on_version?(:A) }
+        valid_community_graph.partial_infection_of(3, 0.10)
+        after_infection = valid_community_graph.ids.all? {|id| $communities[id].all_on_version?(:A) }
+        expect(before_infection).to eq(true)
+        expect(after_infection).to eq(false)
+      end
+    end
   end
 end
