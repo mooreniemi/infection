@@ -3,10 +3,17 @@ module TotalInfection
   # where s is defined by self
   # and G is $users
   def infect!
-    health = []
+    # if the user is alone, we can just switch ourself
+    # and avoid the rest of the work
+    if adjacent_users.empty?
+      self.version = :B
+      return self
+    end
 
+    health = []
     # dependent on our store to access other users
     $users.each do |user|
+      next if user.nil? # our store can be sparse
       next if user.id == self.id # ignore our starting node
       health[user.id] = "unexposed"
     end

@@ -8,9 +8,13 @@ class Community
   def initialize(members)
     fail "Provide members (users) as array" unless members.is_a? Array
     fail "Every member must be a User" unless members.all? {|e| e.is_a? User }
-    @id = $communities.size + 1
-    $communities << @id
+    @id = $communities.size
     @members = members
     @size = members.size
+    $communities[@id] = self
+  end
+
+  def all_on_version?(version)
+    members.all? {|u| u.version == version }
   end
 end

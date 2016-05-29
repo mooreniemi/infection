@@ -3,8 +3,17 @@ require 'spec_helper'
 require 'user'
 
 describe "total_infection" do
+  before(:each) do
+    # clear out our "database"
+    $users = []
+  end
+
+  let(:user) do
+    user = User.new
+    $users[user.id]
+  end
+
   describe User do
-    let(:user) { User.new }
     it 'allows access to #id and #version' do
       expect(user.id).to_not eq(nil)
       expect(user.version).to eq(:A)
@@ -16,13 +25,7 @@ describe "total_infection" do
   end
 
   describe "#infect!" do
-    before(:each) do
-      # clear out our "database"
-      $users = []
-    end
-
     it 'toggles the version seen by a user from A to B' do
-      $users << (user = User.new)
       user.infect!
       expect(user.version).to eq(:B)
     end
