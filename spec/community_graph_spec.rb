@@ -66,5 +66,15 @@ describe CommunityGraph do
         expect(after_infection).to eq(false)
       end
     end
+
+    describe '#infect_exactly(users)' do
+      it 'infects exactly the number of users you desire' do
+        before_infection = valid_community_graph.ids.all? {|id| $communities[id].all_on_version?(:A) }
+        valid_community_graph.infect_exactly(1)
+        after_infection = $users.count {|user| !user.nil? && user.version == :B }
+        expect(before_infection).to eq(true)
+        expect(after_infection).to eq(1)
+      end
+    end
   end
 end

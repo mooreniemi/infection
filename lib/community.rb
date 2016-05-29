@@ -17,4 +17,8 @@ class Community
   def all_on_version?(version)
     members.all? {|u| u.version == version }
   end
+
+  def count_on_version(version)
+    members.count {|u| u.version == version }
+  end
 end

@@ -46,5 +46,15 @@ class CommunityGraph
   end
 
   def infect_exactly(number_users)
+    fit = sizes.doomed_subset_upto(number_users)
+
+    doomed_communities = fit.inject([]) do |memo, e|
+      memo << first_id_of(e)
+      memo
+    end
+
+    doomed_communities.each do |community_id|
+      $communities[community_id].members.first.infect!
+    end
   end
 end

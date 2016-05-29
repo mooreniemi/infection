@@ -26,12 +26,20 @@ describe Community do
     expect(Community.new([User.new]).id).to eq(1)
     expect(Community.new([User.new]).id).to eq(2)
   end
+
   describe '#all_on_version?(version)' do
     it 'returns true if all are on version' do
       expect(valid_community.all_on_version?(:A)).to be true
     end
     it 'returns false if any are not on version' do
       expect(mixed_version_community.all_on_version?(:B)).to be false
+    end
+  end
+
+  describe '#count_on_version(version)' do
+    it 'gives us version counts' do
+      expect(mixed_version_community.count_on_version(:A)).to eq(1)
+      expect(mixed_version_community.count_on_version(:B)).to eq(1)
     end
   end
 end
