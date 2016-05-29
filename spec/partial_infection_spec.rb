@@ -11,11 +11,21 @@ describe 'partial_infection' do
   describe '#approximate_doomed_subset_upto' do
     context 'relies on trimming "close enough" elements' do
       using Trim
-      it 'allows a properly formed Hash to trim' do
-        hash = {0 => [0, 2]}
-        trimmed_hash = {0 => [0]}
-        expect(hash.trim(2)).to eq(trimmed_hash)
+      it 'trims list of elements within tolerance' do
+        array = [10, 11, 12, 15, 20, 21, 22, 23, 24, 29]
+        epsilon = 0.1
+        trimmed_array = [10, 12, 15, 20, 23, 29]
+
+        expect(array.trim_by!(epsilon)).to eq(trimmed_array)
       end
+    end
+    it 'handles Cormen case' do
+      medium_community = CommunityArray.new([104, 102, 201, 101])
+      expect(medium_community.approximate_doomed_subset_upto(308, 0.40)).
+        to match_array([101,104,201])
+    end
+    it 'can handle larger numbers' do
+      expect(big_community_array.approximate_doomed_subset_upto(9105)).to eq([])
     end
   end
 

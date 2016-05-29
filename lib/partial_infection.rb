@@ -1,3 +1,19 @@
+module Trim
+  refine Array do
+    def trim_by!(delta)
+      last = self.first
+      new_array = [last]
+      (1..self.length - 1).each do |i|
+        if last < (1 - delta) * self[i]
+          new_array << self[i]
+          last = self[i]
+        end
+      end
+      new_array
+    end
+  end
+end
+
 require 'matrix'
 module MutableMatrix
   refine Matrix do
@@ -20,10 +36,32 @@ end
 
 module PartialInfection
   refine Array do
-    using MutableMatrix
-    def approximate_doomed_subset_upto(target)
+    using Trim
+    def approximate_doomed_subset_upto(target, delta = 0.1)
+      n = self.length
+      l = [0]
+      sorted_copy = self.sort
+      (0..n - 1).each do |i|
+        l = l + l.map {|e| e + sorted_copy[i]}
+        l = l.trim_by!(delta/(2*n))
+        l.reject! {|e| e if e > target}
+      end
+      # we can throw out our seed value now
+      l = l.reject!(&:zero?)
+      l.pop
+      l.inject([]) do |found, e|
+        if self.index(e)
+          found << e
+        else
+          l.each do |seeking|
+            found << sorted_copy.min_by {|x| (x.to_f - seeking).abs }
+          end
+        end
+        found
+      end
     end
 
+    using MutableMatrix
     def doomed_subset_upto(target)
       return [] if self.empty?
 
@@ -91,25 +129,6 @@ module PartialInfection
       else
         false
       end
-    end
-  end
-end
-
-module Trim
-  refine Hash do
-    def trim(delta)
-      # should check that all keys are ints and all values arrays of ints
-      # wish we had a type system eh? :)
-      sorted_to_array = self.sort
-      seed_array = sorted_to_array.shift
-
-      result_array = sorted_to_array.inject(seed_array) do |memo_hash, current_sum|
-        prev_sum = memo_hash.to_a[-1]
-        puts "prev_sum: #{prev_sum}"
-        memo_hash << current_sum unless current_sum[0]/(1+delta) <= prev_sum[0]
-        memo_hash
-      end
-      result_array
     end
   end
 end
