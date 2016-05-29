@@ -22,7 +22,7 @@ describe 'partial_infection' do
     it 'handles Cormen case' do
       medium_community = CommunityArray.new([104, 102, 201, 101])
       expect(medium_community.approximate_doomed_subset_upto(308, 0.40)).
-        to match_array([101,104,201])
+        to match_array([101,201])
     end
     it 'can handle larger numbers' do
       expect(big_community_array.approximate_doomed_subset_upto(9105)).to eq([])
@@ -43,7 +43,7 @@ describe 'partial_infection' do
 
       # puts "starting at #{time.hour}:#{time.min} this performance test will take 10 minutes minimum!"
       #expect { big_community_array.doomed_subset_upto(9000) }.
-      #  to perform_under(10).min.and_sample(10)
+      #  to perform_under(5).min.and_sample(10)
     end
   end
 end

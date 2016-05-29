@@ -40,21 +40,22 @@ module PartialInfection
     def approximate_doomed_subset_upto(target, delta = 0.1)
       n = self.length
       l = [0]
-      sorted_copy = self.sort
       (0..n - 1).each do |i|
-        l = l + l.map {|e| e + sorted_copy[i]}
+        l = l + l.map {|e| e + self[i]}
+        l.sort!
         l = l.trim_by!(delta/(2*n))
         l.reject! {|e| e if e > target}
       end
+
       # we can throw out our seed value now
       l = l.reject!(&:zero?)
-      l.pop
+      l.pop # we dont need the sum we found
       l.inject([]) do |found, e|
         if self.index(e)
           found << e
         else
           l.each do |seeking|
-            found << sorted_copy.min_by {|x| (x.to_f - seeking).abs }
+            found << self.min_by {|x| (x.to_f - seeking).abs }
           end
         end
         found
