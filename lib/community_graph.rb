@@ -9,14 +9,14 @@ class CommunityGraph
     @sizes = communities.inject(CommunityArray.new) do |memo, community|
       memo[community.id] = community.size
       memo
-    end.compact!
+    end
   end
 
   def size_of(id)
-    self.sizes[id - 1]
+    self.sizes[id]
   end
 
   def first_id_of(size)
-    self.sizes.index(size) + 1
+    self.sizes.index(size)
   end
 end

@@ -33,7 +33,7 @@ describe CommunityGraph do
     expect(valid_community_graph).to be_a CommunityGraph
   end
   it 'gives CommunityArray of sizes' do
-    expect(valid_community_graph.sizes).to eq([1,2,3])
+    expect(valid_community_graph.sizes).to eq([nil, 1,2,3])
   end
   it '#size_of(id)' do
     expect(valid_community_graph.size_of(1)).to eq(1)
