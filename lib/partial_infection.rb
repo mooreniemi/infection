@@ -1,42 +1,9 @@
-module Trim
-  refine Array do
-    def trim_by(delta)
-      last = self.first
-      new_array = [last]
-      (1..self.length - 1).each do |i|
-        if last < (1 - delta) * self[i]
-          new_array << self[i]
-          last = self[i]
-        end
-      end
-      new_array
-    end
-  end
-end
-
-require 'matrix'
-module MutableMatrix
-  refine Matrix do
-    def []=(i, j, x)
-      @rows[i][j] = x
-    end
-    def to_readable
-      i = 0
-      self.each do |number|
-        print number.to_s + " "
-        i+= 1
-        if i == self.column_size
-          print "\n"
-          i = 0
-        end
-      end
-    end
-  end
-end
+require 'array_trim'
+require 'mutable_matrix'
 
 module PartialInfection
   refine Array do
-    using Trim
+    using ArrayTrim
     def approximate_doomed_subset_upto(target, delta = 0.25)
       n = self.length
       l = [0]

@@ -19,7 +19,7 @@ rspec
 
 My process is to read the problem several times, make some notes, and think what problems I know about best match. If I know the solution by heart I'll do some test cases (I prefer TDD, or at least test first most of the time) and go for it. Otherwise I check my two favorite algorithm books: [Introduction to Algorithms](https://mitpress.mit.edu/books/introduction-algorithms) and [Algorithm Design Manual](http://www.algorist.com/).
 
-It isn't a daily occurance that I need to use an algorithm like Breadth-First Search or Depth-First Search, but it does come up. The most recent time was implementing a microservice that handled settings for different communities (also called fleets) at Zipcar. Essentially if a parent community had a setting turned on, we wanted that setting to be inherited. This was an easier case of the project problem I think, in that the relations weren't commutative.
+It isn't a daily occurance that I need to use an algorithm like Breadth-First Search or Depth-First Search, but it does come up. The most recent time was implementing a microservice that handled settings for different communities (also called fleets) at Zipcar. Essentially if a parent community had a setting turned on, we wanted that setting to be inherited. This was an easier case of the project problem I think, in that the relations weren't commutative. (Or in other words, it was a tree.)
 
 ## total infection
 
@@ -47,7 +47,7 @@ Technically, the approximate algorithm can give us the exact one for free, but a
 
 > write a version of limited_infection that infects exactly the number of users specified and fails if that’s not possible (this can be (really) slow)
 
-To get an exact solution in better than exponential time, I tried an implementation of a dynamic programming algorithm for subset sum. This gives us psuedo-polynomial time, which is still pretty darn slow for large numbers. One thought I had was we could scale our numbers to get better performance, but then the algorithm wouldn't give exact answers.
+To get an exact solution in better than exponential time, I tried an implementation of a dynamic programming algorithm for subset sum. This gives us psuedo-polynomial time, which is still pretty darn slow for large numbers. (It also uses a lot of space for our table!) One thought I had was we could scale our numbers to get better performance, but then the algorithm wouldn't give exact answers.
 
 I ended up solving approximate and exact implementations in the opposite order (I did the exact one first), out of my own curiosity in dynamic programming. I wouldn't usually do things out of priority order during normal working time, but I gave myself a break on this exercise. :)
 
