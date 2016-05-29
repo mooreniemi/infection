@@ -16,7 +16,7 @@ describe 'partial_infection' do
         epsilon = 0.1
         trimmed_array = [10, 12, 15, 20, 23, 29]
 
-        expect(array.trim_by!(epsilon)).to eq(trimmed_array)
+        expect(array.trim_by(epsilon)).to eq(trimmed_array)
       end
     end
     it 'handles Cormen case' do

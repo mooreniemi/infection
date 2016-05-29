@@ -1,6 +1,6 @@
 module Trim
   refine Array do
-    def trim_by!(delta)
+    def trim_by(delta)
       last = self.first
       new_array = [last]
       (1..self.length - 1).each do |i|
@@ -43,7 +43,7 @@ module PartialInfection
       (0..n - 1).each do |i|
         l = l + l.map {|e| e + self[i]}
         l.sort!
-        l = l.trim_by!(delta/(2*n))
+        l = l.trim_by(delta/(2*n))
         l.reject! {|e| e if e > target}
       end
 
@@ -51,7 +51,6 @@ module PartialInfection
       l = l.reject!(&:zero?)
       l.pop # we dont need the sum we found
 
-      puts "l: #{l}"
       # now we need to grab the original values
       l.inject([]) do |found, e|
         # we only need the first subset that works
