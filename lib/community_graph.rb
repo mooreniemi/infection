@@ -20,9 +20,15 @@ class CommunityGraph
     self.sizes[id]
   end
 
+  # TODO need to use next_id_of(size)
+  # anywhere we use this so that duplicates
+  # work, otherwise we'll just try reinfecting
+  # an already infected community
   def first_id_of(size)
     self.sizes.index(size)
   end
+
+  # TODO next_id_of(size)
 
   def total_infection
     ids.each do |id|
@@ -34,6 +40,7 @@ class CommunityGraph
 
   def partial_infection_of(number_users, margin_of_error)
     fail "margin_of_error should be a float" unless margin_of_error.is_a? Float
+
     best_fit = sizes.approximate_doomed_subset_upto(number_users, margin_of_error)
     doomed_communities = best_fit.inject([]) do |memo, e|
       memo << first_id_of(e)

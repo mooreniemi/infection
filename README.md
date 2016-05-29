@@ -12,14 +12,16 @@ bundle install # at same level as this README
 There are two tests skipped with `xit` in `spec/partial_infection_spec.rb` because they are _really_ slow. (They're for exact answers.) If you're feeling patient, you can turn `xit` to `it` and they will run.
 
 ```
-rspec
+rspec # this will run all tests
 ```
 
 ## background
 
 My process is to read the problem several times, make some notes, and think what problems I know about best match. If I know the solution by heart I'll do some test cases (I prefer TDD, or at least test first most of the time) and go for it. Otherwise I check my two favorite algorithm books: [Introduction to Algorithms](https://mitpress.mit.edu/books/introduction-algorithms) and [Algorithm Design Manual](http://www.algorist.com/).
 
-It isn't a daily occurance that I need to use an algorithm like Breadth-First Search or Depth-First Search, but it does come up. The most recent time was implementing a microservice that handled settings for different communities (also called fleets) at Zipcar. Essentially if a parent community had a setting turned on, we wanted that setting to be inherited. This was an easier case of the project problem I think, in that the relations weren't commutative. (Or in other words, it was a tree.)
+In this case, because I was curious about the guts of the algorithm I worked inside out. This is unusual for me: I usually write an API first then fill in an implementation. That said, I think the API is alright, and you're probably best off looking at `lib/community_graph.rb` and `lib/community_graph_spec.rb` to see the driving methods. The real work is done, unsurprisingly, in `lib/partial_infection.rb` and `lib/total_infection.rb`.
+
+I left one `TODO` in the code that we can work on together if desired. It's a pretty trivial "bug" where at the level of the driving method, a `CommunityGraph` with communities of duplicate size will accidentally try to re-infect a community it has already infected. This can be easily fixed by tracking which communities have been infected (at the level of the `CommunityGraph` API) as we go along. If fixing this bug jointly is out of scope for our review, I hope you will believe me that I could've fixed it on my own too. :)
 
 ## total infection
 
@@ -33,9 +35,10 @@ I interpreted the last sentence to mean it is a _simple_ graph, because if it ha
 
 > Now implement the infection algorithm. Starting from any given user, the entire connected component of the coaching graph containing that user should become infected.
 
-This reads like a straight-forward exhaustive graph traversal to me, so my first impulse is a Breadth-First Search though a Depth-First Search would've been fine too. With either, we know based on a given graph and some vertex on it, we can find all the other vertices of that seed vertex's connected component.
+This reads like a straight-forward exhaustive graph traversal to me, so my first impulse is a Breadth-First Search though a Depth-First Search would've been fine too.[1] With either, we know based on a given graph and some vertex on it, we can find all the other vertices of that seed vertex's connected component. To try to model the domain, I called a connected component a `Community`, while the full graph of all connected components is called `CommunityGraph`.
 
 ## partial infection
+### approximate partial infection
 
 > We would like to be able to infect close to a given number of users. Ideally we’d like a coach and all of their students to either have a feature or not. However, that might not always be possible.
 
@@ -45,9 +48,14 @@ Given the constraint on coaching relationships is loose, and an approximate seem
 
 Technically, the approximate algorithm can give us the exact one for free, but as I said it performs exponentially. So in the optional problem I actually tried to do a bit better than that.
 
+### exact partial infection
+
 > write a version of limited_infection that infects exactly the number of users specified and fails if that’s not possible (this can be (really) slow)
 
 To get an exact solution in better than exponential time, I tried an implementation of a dynamic programming algorithm for subset sum. This gives us psuedo-polynomial time, which is still pretty darn slow for large numbers. (It also uses a lot of space for our table!) One thought I had was we could scale our numbers to get better performance, but then the algorithm wouldn't give exact answers.
 
 I ended up solving approximate and exact implementations in the opposite order (I did the exact one first), out of my own curiosity in dynamic programming. I wouldn't usually do things out of priority order during normal working time, but I gave myself a break on this exercise. :)
 
+## footnotes
+
+1. It isn't a daily occurance that I need to use an algorithm like Breadth-First Search or Depth-First Search, but it does come up. The most recent time was implementing a microservice that handled settings for different communities (also called fleets) at Zipcar. Essentially if a parent community had a setting turned on, we wanted that setting to be inherited. This was an easier case of the project problem I think, in that the relations weren't commutative. (Or in other words, it was a tree.)
