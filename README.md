@@ -41,7 +41,7 @@ This reads like a straight-forward exhaustive graph traversal to me, so my first
 
 So, first I sort of considered how in the ideal case we could get the result. I figure it requires two necessary operations: 1. finding connected components so we can get their size (number of nodes, vertices, users), and 2. an operation to find the connected component sizes summed to our target (if there are any). This reminded me a bit of the knapsack problem or k-sum. After thinking on it a bit, I figured it matches the [subset sum problem](http://nerderati.com/2014/08/19/bartering-for-beers-with-approximate-subset-sums/), which is NP-complete.
 
-Given the constraint on coaching relationships is loose, and an approximate seems acceptable, I looked for an approximate solution that behaves well. The naive solution to subset sum is exponential (O(2^N)) because you'd be iterating over a po-set (every possible combination). But an approximate gets us to linear time. Nice! :)
+Given the constraint on coaching relationships is loose, and an approximate seems acceptable, I looked for an approximate solution that behaves well. The naive solution to subset sum is exponential (`O(2&#8319;)`) because you'd be iterating over a po-set (every possible combination). But an approximate gets us to linear time. Nice! :)
 
 Technically, the approximate algorithm can give us the exact one for free, but as I said it performs exponentially. So in the optional problem I actually tried to do a bit better than that.
 
